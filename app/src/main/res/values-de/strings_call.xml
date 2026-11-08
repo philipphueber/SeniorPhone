@@ -30,5 +30,6 @@
     <string name="call_ended_missed">Verpasster Anruf</string>
     <string name="call_ended_busy">Die Leitung ist besetzt</string>
     <string name="call_ended_failed">Der Anruf kam nicht zustande</string>
+    <string name="call_not_allowed">Anrufe sind für diese App nicht erlaubt. Sie können dies in den Einstellungen des Telefons erlauben.</string>
     <string name="call_failed_to_start">Der Anruf konnte nicht gestartet werden.</string>
 </resources>

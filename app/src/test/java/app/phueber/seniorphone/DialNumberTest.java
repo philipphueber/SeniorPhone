@@ -77,6 +77,12 @@ public class DialNumberTest {
         assertTrue(DialNumber.canCall("+49"));
     }
 
+    @Test public void cleanDropsOptionalTrunkDigitAfterPlus() {
+        assertEquals("+4930123", DialNumber.clean("+49(0)30 123"));
+        assertEquals("+4144123", DialNumber.clean("+41 (0)44 123"));
+        assertEquals("030012", DialNumber.clean("030(0)12"));
+    }
+
     @Test public void lettersAsOnEveryPhone() {
         assertEquals("ABC", DialNumber.letters('2'));
         assertEquals("PQRS", DialNumber.letters('7'));

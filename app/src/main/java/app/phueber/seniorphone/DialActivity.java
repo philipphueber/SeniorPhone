@@ -201,6 +201,9 @@ public final class DialActivity extends Activity {
         for (int row = 0; row < 4; row++) {
             LinearLayout r = new LinearLayout(this);
             r.setOrientation(LinearLayout.HORIZONTAL);
+            // A minimum, not a fixed height: at a large font scale the keys grow
+            // instead of clipping their digit and letters.
+            r.setMinimumHeight(Ui.dp(this, KEY_MIN_HEIGHT + 8));
             for (int col = 0; col < 3; col++) {
                 LinearLayout.LayoutParams klp = new LinearLayout.LayoutParams(
                         0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
@@ -208,7 +211,7 @@ public final class DialActivity extends Activity {
                 r.addView(key(KEYS.charAt(row * 3 + col)), klp);
             }
             pad.addView(r, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    Ui.dp(this, KEY_MIN_HEIGHT + 8), 1));
+                    ViewGroup.LayoutParams.WRAP_CONTENT, 1));
         }
 
         call = Ui.button(this, getString(R.string.call), R.color.green);

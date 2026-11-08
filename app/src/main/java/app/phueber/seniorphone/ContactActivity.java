@@ -127,6 +127,13 @@ public final class ContactActivity extends Activity {
         dismissDialog();
     }
 
+    /** Forward the CALL_PHONE answer: Calls.place() asked for it and needs it to finish the call. */
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] results) {
+        super.onRequestPermissionsResult(requestCode, permissions, results);
+        Calls.onRequestPermissionsResult(this, requestCode, results);
+    }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

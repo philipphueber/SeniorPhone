@@ -42,7 +42,8 @@ final class DialNumber {
     /**
      * A number handed over by another app (the part after "tel:", already
      * URL-decoded), reduced to what the pad could have typed: spaces, dashes,
-     * dots, slashes and brackets are dropped, so are pause/wait characters and
+     * dots, slashes and brackets are dropped (and the optional "(0)" trunk digit
+     * after a leading +), so are pause/wait characters and
      * everything after them (extension digits would be dialled straight away),
      * a + survives only at the start, and it is cut to MAX_LENGTH.
      */
@@ -51,6 +52,13 @@ final class DialNumber {
         StringBuilder out = new StringBuilder();
         for (int i = 0; i < raw.length() && out.length() < MAX_LENGTH; i++) {
             char c = raw.charAt(i);
+            // "+49(0)30": the bracketed 0 is the optional trunk digit, which must not
+            // be dialled after a country code. Only after a leading +, so a national
+            // number or a (0) inside a code stays as written.
+            if (out.length() > 0 && out.charAt(0) == '+' && raw.startsWith("(0)", i)) {
+                i += 2;
+                continue;
+            }
             if (c == ',' || c == ';' || c == 'p' || c == 'P' || c == 'w' || c == 'W') break;
             if (c == '+') {
                 if (out.length() == 0) out.append(c);

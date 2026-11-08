@@ -33,5 +33,6 @@
     <string name="call_ended_missed">Missed call</string>
     <string name="call_ended_busy">The line is busy</string>
     <string name="call_ended_failed">The call did not go through</string>
+    <string name="call_not_allowed">Calling is not allowed for this app. You can allow it in the phone settings.</string>
     <string name="call_failed_to_start">The call could not be started.</string>
 </resources>

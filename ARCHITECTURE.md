@@ -32,7 +32,7 @@ colour theme (`Store`).
 | `CallService` | The `InCallService` Telecom binds while there is a call. The only owner of call state; answer, decline, hang up, speaker. |
 | `CallActivity` | The call screen: incoming (Answer / Decline), calling and connected (Hang up, Speaker, Louder), ended. Over the lock screen. |
 | `CallNotifier` | The incoming-call notification (full screen, Answer / Decline) and the ongoing one (Hang up). |
-| `CallActionReceiver` | Decline and Hang up from the notifications. |
+| `CallActionReceiver` | Decline and Hang up from the notifications. After a process restart, a tap before Telecom has rebound the call service is kept for 3 s and applied when the call arrives. |
 | `CallState` | Pure: Telecom states to screens, which call gets the screen, why a call ended, the timer text. Unit tested. |
 | `Role` | Asks once per start to become the phone app; Settings shows the state. |
 | `SettingsActivity` | Lock (long press), Colours, Phone app, phone settings. |

@@ -269,7 +269,10 @@ public final class Ui {
         no.setOnClickListener(v -> d.dismiss());
         box.addView(no, fullWidth(a, 12));
 
-        d.setContentView(box);
+        // Scrolls, so at a large font scale the buttons stay reachable.
+        ScrollView sv = new ScrollView(a);
+        sv.addView(box);
+        d.setContentView(sv);
         Window w = d.getWindow();
         if (w != null) {
             w.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));

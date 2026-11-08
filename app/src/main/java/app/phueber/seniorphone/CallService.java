@@ -196,6 +196,7 @@ public final class CallService extends InCallService {
         } catch (Throwable t) {
             Log.e(TAG, "onCallAdded", t);
         }
+        applyPendingEnd();
         changed();
         // The screen, directly; see the class comment.
         openScreen(this);
@@ -311,6 +312,37 @@ public final class CallService extends InCallService {
             Entry e = byKey(key);
             if (e != null && CallState.isRinging(e.state())) e.call.answer(VideoProfile.STATE_AUDIO_ONLY);
         } catch (Throwable t) { Log.e(TAG, "answer", t); }
+    }
+
+    private static final long REBIND_WAIT_MS = 3000;
+    private static boolean pendingDecline;
+    private static long pendingEndAt; // 0 = nothing pending
+    private static final Handler pendingHandler = new Handler(Looper.getMainLooper());
+
+    /**
+     * Decline / Hang up tapped while we know no call (the process was restarted
+     * and Telecom has not rebound us yet). Remembered for a few seconds and
+     * applied to the primary call in onCallAdded (keys do not survive a restart).
+     * If no call arrives, the stale notifications are removed.
+     */
+    static void endWhenBound(boolean decline, Context ctx) {
+        pendingDecline = decline;
+        pendingEndAt = SystemClock.elapsedRealtime();
+        pendingHandler.postDelayed(() -> {
+            if (pendingEndAt == 0) return; // applied meanwhile
+            pendingEndAt = 0;
+            if (!hasLiveCall()) CallNotifier.cancelAll(ctx);
+        }, REBIND_WAIT_MS);
+    }
+
+    private static void applyPendingEnd() {
+        if (pendingEndAt == 0) return;
+        boolean fresh = SystemClock.elapsedRealtime() - pendingEndAt < REBIND_WAIT_MS;
+        pendingEndAt = 0;
+        Entry e = primary();
+        if (!fresh || e == null) return;
+        if (pendingDecline) decline(e.key);
+        else hangUp(e.key);
     }
 
     static void decline(int key) {

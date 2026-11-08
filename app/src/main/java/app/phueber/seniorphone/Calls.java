@@ -64,6 +64,18 @@ public final class Calls {
     public static void onRequestPermissionsResult(Activity a, int requestCode, int[] grantResults) {
         if (requestCode != REQUEST_CALL_PHONE) return;
         String n = pendingNumber;
+        // A refusal must be visible, or the senior taps Call again and again.
+        boolean denied = grantResults == null || grantResults.length == 0
+                || grantResults[0] != PackageManager.PERMISSION_GRANTED;
+        if (denied && n != null) {
+            pendingNumber = null;
+            try {
+                Toast.makeText(a, R.string.call_not_allowed, Toast.LENGTH_LONG).show();
+            } catch (Throwable ignored) {
+                // nothing more we can do
+            }
+            return;
+        }
         boolean fresh = SystemClock.elapsedRealtime() - pendingAt < PENDING_MS;
         pendingNumber = null;
         if (n != null && fresh && grantResults != null && grantResults.length > 0
