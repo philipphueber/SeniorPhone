@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.media.AudioManager;
 import android.media.ToneGenerator;
 import android.net.Uri;
@@ -145,7 +144,7 @@ public final class DialActivity extends Activity {
         displayEmpty = empty;
         if (empty) {
             display.setAutoSizeTextTypeWithDefaults(TextView.AUTO_SIZE_TEXT_TYPE_NONE);
-            display.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+            display.setTextSize(TypedValue.COMPLEX_UNIT_SP, 24);
             display.setMaxLines(2); // the hint may wrap rather than be cut
             display.setEllipsize(TextUtils.TruncateAt.END);
         } else {
@@ -155,7 +154,7 @@ public final class DialActivity extends Activity {
             // raise the smallest size until a long number no longer fits.
             display.setEllipsize(null);
             display.setMaxLines(2);
-            display.setAutoSizeTextTypeUniformWithConfiguration(14, 48, 1, TypedValue.COMPLEX_UNIT_DIP);
+            display.setAutoSizeTextTypeUniformWithConfiguration(14, 56, 1, TypedValue.COMPLEX_UNIT_DIP);
         }
     }
 
@@ -172,10 +171,11 @@ public final class DialActivity extends Activity {
         page.setOrientation(LinearLayout.VERTICAL);
         page.setFitsSystemWindows(true);
 
-        // The number and Delete: always visible, above the scrolling pad.
+        // Only Delete sits on top, at the end. The number goes in the middle, in
+        // the spare room between Delete and the pad, where it is easy to read.
         LinearLayout top = new LinearLayout(this);
         top.setOrientation(LinearLayout.HORIZONTAL);
-        top.setGravity(Gravity.CENTER_VERTICAL);
+        top.setGravity(Gravity.END | Gravity.CENTER_VERTICAL);
         top.setPadding(p, Ui.dp(this, 12), p, Ui.dp(this, 8));
 
         display = Ui.bold(this, "", 48);
@@ -194,14 +194,8 @@ public final class DialActivity extends Activity {
         });
         sizeDisplay(true);
         display.setHintTextColor(Ui.color(this, R.color.text_muted));
-        display.setPadding(Ui.dp(this, 8), 0, Ui.dp(this, 8), 0);
+        display.setPadding(Ui.dp(this, 4), 0, Ui.dp(this, 4), 0);
         display.setAccessibilityLiveRegion(View.ACCESSIBILITY_LIVE_REGION_POLITE);
-        GradientDrawable box = new GradientDrawable();
-        box.setColor(Ui.color(this, R.color.card));
-        box.setCornerRadius(Ui.dp(this, 20));
-        box.setStroke(Ui.dp(this, 2), Ui.color(this, R.color.card_border));
-        display.setBackground(box);
-        top.addView(display, new LinearLayout.LayoutParams(0, Ui.dp(this, KEY_MIN_HEIGHT), 1));
 
         // A square with only the backspace sign, so the number gets the width.
         // TalkBack still hears "Delete".
@@ -230,7 +224,6 @@ public final class DialActivity extends Activity {
         longPressLabel(delete, getString(R.string.dial_delete_all));
         LinearLayout.LayoutParams dlp = new LinearLayout.LayoutParams(
                 Ui.dp(this, KEY_MIN_HEIGHT), Ui.dp(this, KEY_MIN_HEIGHT));
-        dlp.setMarginStart(Ui.dp(this, 10));
         top.addView(delete, dlp);
         page.addView(top);
 
@@ -238,7 +231,7 @@ public final class DialActivity extends Activity {
         // any spare height; on a very small screen the pad scrolls instead of
         // shrinking the keys.
         // The pad sits at the bottom, just above Back where the thumb is; spare
-        // height goes above it, under the number. A ScrollView still, so a very
+        // height goes to the number above it. A ScrollView still, so a very
         // small screen or a huge font scrolls instead of clipping keys.
         ScrollView scroll = new ScrollView(this);
         scroll.setFillViewport(true);
@@ -246,6 +239,12 @@ public final class DialActivity extends Activity {
         pad.setOrientation(LinearLayout.VERTICAL);
         pad.setGravity(Gravity.BOTTOM);
         pad.setPadding(p - Ui.dp(this, 4), 0, p - Ui.dp(this, 4), Ui.dp(this, 8));
+        // The number fills the spare height above the keys, centred in it.
+        LinearLayout.LayoutParams nlp = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, 0, 1);
+        nlp.setMargins(Ui.dp(this, 4), 0, Ui.dp(this, 4), Ui.dp(this, 8));
+        display.setMinHeight(Ui.dp(this, KEY_MIN_HEIGHT));
+        pad.addView(display, nlp);
         for (int row = 0; row < 4; row++) {
             LinearLayout r = new LinearLayout(this);
             r.setOrientation(LinearLayout.HORIZONTAL);
