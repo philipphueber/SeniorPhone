@@ -83,7 +83,10 @@ star inside its pill on the right, and New contact, Edit and Delete
 disappear. Calling works as always. No PIN, on purpose: it protects against
 accidents.
 
-Every screen has its Back button at the bottom, like the other Senior apps.
+Every screen has its Back button at the bottom, like the other Senior apps,
+and it goes straight to the home screen in one tap (`Ui.goHome`), closing the
+app's screens behind it: back step by step (contact page, list, home) was too
+many steps. The system back gesture still goes one step.
 
 ## Permissions
 

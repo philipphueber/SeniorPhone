@@ -135,6 +135,23 @@ public final class DialActivity extends Activity {
         }
     }
 
+    private Boolean displayEmpty;
+
+    private void sizeDisplay(boolean empty) {
+        if (display == null || Boolean.valueOf(empty).equals(displayEmpty)) return;
+        displayEmpty = empty;
+        if (empty) {
+            display.setAutoSizeTextTypeWithDefaults(TextView.AUTO_SIZE_TEXT_TYPE_NONE);
+            display.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+            display.setMaxLines(2); // the hint may wrap rather than be cut
+            display.setEllipsize(TextUtils.TruncateAt.END);
+        } else {
+            display.setMaxLines(1);
+            display.setEllipsize(TextUtils.TruncateAt.START);
+            display.setAutoSizeTextTypeUniformWithConfiguration(20, 48, 2, TypedValue.COMPLEX_UNIT_SP);
+        }
+    }
+
     /** The number in a "tel:" link from another app, cleaned; "" if there is none. */
     private static String fromIntent(Intent i) {
         Uri data = i == null ? null : i.getData();
@@ -160,6 +177,18 @@ public final class DialActivity extends Activity {
         display.setGravity(Gravity.CENTER);
         display.setAutoSizeTextTypeUniformWithConfiguration(20, 48, 2, TypedValue.COMPLEX_UNIT_SP);
         display.setHint(R.string.dial_hint);
+        // Empty, the field shows the hint "Type a number". Auto-size only shrinks
+        // typed text, never a hint, so at a large font size the hint would be cut
+        // to "...mber". While empty: a smaller fixed size on up to two lines; once a
+        // digit is typed: auto-size again, cut at the start so the end shows.
+        display.addTextChangedListener(new android.text.TextWatcher() {
+            @Override public void beforeTextChanged(CharSequence s, int a, int b, int c) { }
+            @Override public void onTextChanged(CharSequence s, int a, int b, int c) { }
+            @Override public void afterTextChanged(android.text.Editable s) {
+                sizeDisplay(s.length() == 0);
+            }
+        });
+        sizeDisplay(true);
         display.setHintTextColor(Ui.color(this, R.color.text_muted));
         display.setPadding(Ui.dp(this, 8), 0, Ui.dp(this, 8), 0);
         display.setAccessibilityLiveRegion(View.ACCESSIBILITY_LIVE_REGION_POLITE);

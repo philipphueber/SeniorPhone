@@ -181,7 +181,7 @@ public final class Ui {
         return lp;
     }
 
-    /** The pinned "← Back" button of every helper screen: closes the activity. */
+    /** The pinned "← Back" button of every screen: straight to the home screen (see goHome). */
     public static View backButton(Activity a) {
         int fg = color(a, R.color.text_black);
         LinearLayout b = new LinearLayout(a);
@@ -192,7 +192,7 @@ public final class Ui {
         b.setClickable(true);
         b.setFocusable(true);
         b.setContentDescription(a.getString(R.string.back));
-        b.setOnClickListener(v -> a.finish());
+        b.setOnClickListener(v -> goHome(a));
 
         TextView label = bold(a, a.getString(R.string.back), TEXT_BUTTON);
         label.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
@@ -206,6 +206,24 @@ public final class Ui {
         b.addView(arrow, alp);
         b.addView(label);
         return b;
+    }
+
+    /**
+     * Back goes straight to the home screen, in one tap, from any screen of the
+     * app: walking back screen by screen (contact page, list, home) was too many
+     * steps for a senior. The app's screens are closed behind it, so the next
+     * start opens fresh on the contact list instead of on an old contact page.
+     * The system back gesture still goes one step.
+     */
+    public static void goHome(Activity a) {
+        try {
+            a.startActivity(new android.content.Intent(android.content.Intent.ACTION_MAIN)
+                    .addCategory(android.content.Intent.CATEGORY_HOME)
+                    .addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK));
+        } catch (RuntimeException ignored) {
+            // no home app answered: closing is the next best thing
+        }
+        a.finishAffinity();
     }
 
     /**
