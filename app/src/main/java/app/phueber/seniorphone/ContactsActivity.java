@@ -56,7 +56,8 @@ import java.util.Set;
  * A tap on a name opens the contact page, which has the Call button.
  *
  * The helper sets the favourites with the star on the left of each row and
- * then locks (Settings → Lock): locked, the stars only show, and "New
+ * then locks: locked, the star buttons go and a favourite shows its star inside
+ * its pill on the right, and "New
  * contact", Edit and Delete are gone, so nothing can be changed by accident.
  *
  * The list is a ListView, not a column in a ScrollView as on the launcher's
@@ -629,6 +630,8 @@ public final class ContactsActivity extends Activity {
         LinearLayout root;
         ImageView star;
         LinearLayout card;
+        /** Locked: the favourite's star, inside the pill on the right. */
+        ImageView badge;
         Avatar avatar;
         TextView name;
         ContactInfo contact;
@@ -704,6 +707,17 @@ public final class ContactsActivity extends Activity {
                 0, ViewGroup.LayoutParams.WRAP_CONTENT, 1);
         nlp.setMarginStart(Ui.dp(this, 14));
         h.card.addView(h.name, nlp);
+
+        // Locked, the star moves into the pill, on the right: there is nothing to
+        // tap any more, so it is part of the name, not a button beside it.
+        h.badge = new ImageView(this);
+        h.badge.setImageResource(R.drawable.ic_contacts_star);
+        h.badge.setImageTintList(ColorStateList.valueOf(Ui.color(this, R.color.text_black)));
+        h.badge.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO); // the row says "favourite"
+        int bs = Ui.dp(this, 36);
+        LinearLayout.LayoutParams blp = new LinearLayout.LayoutParams(bs, bs);
+        blp.setMarginStart(Ui.dp(this, 8));
+        h.card.addView(h.badge, blp);
         h.root.addView(h.card, new LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1));
 
         h.card.setOnClickListener(v -> {
@@ -722,12 +736,15 @@ public final class ContactsActivity extends Activity {
         h.card.setContentDescription(c.starred
                 ? getString(R.string.contacts_row_favourite_cd, name) : name);
         h.avatar.bind(c, false);
-        if (locked && !c.starred) {
-            // Locked: no star at all on the others, and no gap for one either.
+        if (locked) {
+            // Locked: no star button on the left (nothing to change, and no gap
+            // for one); a favourite shows its star inside the pill instead.
             h.star.setVisibility(View.GONE);
+            h.badge.setVisibility(c.starred ? View.VISIBLE : View.GONE);
         } else {
+            h.badge.setVisibility(View.GONE);
             h.star.setVisibility(View.VISIBLE);
-            styleStar(h.star, c.starred, !locked, c);
+            styleStar(h.star, c.starred, true, c);
         }
     }
 

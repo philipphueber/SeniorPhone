@@ -78,8 +78,8 @@ on the home screen: this app can see the lock but never lift it. Without the
 launcher, Settings → Lock (long press) is this app's own lock, unlocked by
 holding the padlock.
 
-Locked: Settings is replaced by a padlock, favourites keep their star but it
-cannot be tapped, others show no star, and New contact, Edit and Delete
+Locked: Settings is replaced by a padlock, the star buttons go, a favourite shows its
+star inside its pill on the right, and New contact, Edit and Delete
 disappear. Calling works as always. No PIN, on purpose: it protects against
 accidents.
 
