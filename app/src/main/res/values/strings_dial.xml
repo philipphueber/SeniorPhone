@@ -6,7 +6,6 @@
     <!-- TalkBack: what holding Delete does. -->
     <string name="dial_delete_all">Delete the whole number</string>
     <!-- Small line on the 0 key: holding it types +. Keep it short. -->
-    <string name="dial_zero_hint">Hold: +</string>
     <!-- TalkBack: the 0 key. -->
     <string name="dial_zero_description">0. Hold for plus</string>
     <!-- Spoken names of the special keys (TalkBack). -->

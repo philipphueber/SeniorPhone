@@ -25,8 +25,9 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 /**
- * The number pad: the typed number big on top with Delete beside it, twelve
- * big keys filling the width, a big green Call, and Back. Also what other apps
+ * The number pad: the typed number big on top with a square Delete (⌫) beside
+ * it, twelve keys with only their big digit near the bottom (where the thumb is),
+ * a big green Call, and Back. Also what other apps
  * open with "dial this number" (ACTION_DIAL / VIEW tel:), pre-filled.
  *
  * No gestures: every key is a plain tap. Two helper-ish long presses only,
@@ -38,7 +39,9 @@ import android.widget.TextView;
 public final class DialActivity extends Activity {
     private static final String STATE_NUMBER = "number";
     private static final int KEY_MIN_HEIGHT = 80;
-    private static final int DIGIT_SP = 40;
+    private static final int DIGIT_SP = 52;
+    /** Pad rows keep this height instead of stretching over the whole screen. */
+    private static final int KEY_HEIGHT = 76;
     private static final int LETTERS_SP = 16;
     private static final int TONE_MS = 150;
     private static final String KEYS = "123456789*0#";
@@ -199,10 +202,21 @@ public final class DialActivity extends Activity {
         display.setBackground(box);
         top.addView(display, new LinearLayout.LayoutParams(0, Ui.dp(this, KEY_MIN_HEIGHT), 1));
 
-        delete = Ui.button(this, getString(R.string.dial_delete), R.color.blue);
+        // A square with only the backspace sign, so the number gets the width.
+        // TalkBack still hears "Delete".
+        delete = Ui.button(this, "", R.color.blue);
         delete.setMinHeight(Ui.dp(this, KEY_MIN_HEIGHT));
         delete.setMinimumHeight(Ui.dp(this, KEY_MIN_HEIGHT));
+        delete.setMinWidth(Ui.dp(this, KEY_MIN_HEIGHT));
+        delete.setMinimumWidth(Ui.dp(this, KEY_MIN_HEIGHT));
+        delete.setPadding(0, 0, 0, 0);
+        delete.setContentDescription(getString(R.string.dial_delete));
         icon(delete, R.drawable.ic_dial_backspace);
+        // No text: centre the icon by padding it in from the start.
+        Drawable bs = delete.getCompoundDrawablesRelative()[0];
+        int iconW = bs != null ? bs.getBounds().width() : 0;
+        delete.setCompoundDrawablePadding(0);
+        delete.setPaddingRelative((Ui.dp(this, KEY_MIN_HEIGHT) - iconW) / 2, 0, 0, 0);
         delete.setOnClickListener(v -> {
             number = DialNumber.deleteLast(number);
             update();
@@ -214,7 +228,7 @@ public final class DialActivity extends Activity {
         });
         longPressLabel(delete, getString(R.string.dial_delete_all));
         LinearLayout.LayoutParams dlp = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                Ui.dp(this, KEY_MIN_HEIGHT), Ui.dp(this, KEY_MIN_HEIGHT));
         dlp.setMarginStart(Ui.dp(this, 10));
         top.addView(delete, dlp);
         page.addView(top);
@@ -222,17 +236,21 @@ public final class DialActivity extends Activity {
         // The pad and Call. Each row is at least KEY_MIN_HEIGHT and they share
         // any spare height; on a very small screen the pad scrolls instead of
         // shrinking the keys.
+        // The pad sits at the bottom, just above Back where the thumb is; spare
+        // height goes above it, under the number. A ScrollView still, so a very
+        // small screen or a huge font scrolls instead of clipping keys.
         ScrollView scroll = new ScrollView(this);
         scroll.setFillViewport(true);
         LinearLayout pad = new LinearLayout(this);
         pad.setOrientation(LinearLayout.VERTICAL);
+        pad.setGravity(Gravity.BOTTOM);
         pad.setPadding(p - Ui.dp(this, 4), 0, p - Ui.dp(this, 4), Ui.dp(this, 8));
         for (int row = 0; row < 4; row++) {
             LinearLayout r = new LinearLayout(this);
             r.setOrientation(LinearLayout.HORIZONTAL);
             // A minimum, not a fixed height: at a large font scale the keys grow
             // instead of clipping their digit and letters.
-            r.setMinimumHeight(Ui.dp(this, KEY_MIN_HEIGHT + 8));
+            r.setMinimumHeight(Ui.dp(this, KEY_HEIGHT + 8));
             for (int col = 0; col < 3; col++) {
                 LinearLayout.LayoutParams klp = new LinearLayout.LayoutParams(
                         0, ViewGroup.LayoutParams.MATCH_PARENT, 1);
@@ -240,7 +258,7 @@ public final class DialActivity extends Activity {
                 r.addView(key(KEYS.charAt(row * 3 + col)), klp);
             }
             pad.addView(r, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT, 1));
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
         }
 
         call = Ui.button(this, getString(R.string.call), R.color.green);
@@ -267,12 +285,14 @@ public final class DialActivity extends Activity {
         return page;
     }
 
-    /** One key: the character big, the letters small below (or the "+" hint on 0). */
+    /**
+     * One key: only the digit, big and centred. No letters: seniors dial numbers,
+     * not words, and the letters were clutter. The 0 alone shows a small "+" in
+     * its top corner (hold 0 for +; TalkBack says so), out of the digit's way.
+     */
     private View key(char c) {
-        LinearLayout k = new LinearLayout(this);
-        k.setOrientation(LinearLayout.VERTICAL);
-        k.setGravity(Gravity.CENTER);
-        k.setMinimumHeight(Ui.dp(this, KEY_MIN_HEIGHT));
+        android.widget.FrameLayout k = new android.widget.FrameLayout(this);
+        k.setMinimumHeight(Ui.dp(this, KEY_HEIGHT));
         k.setBackground(Ui.ripple(this, R.color.press_dark, Ui.color(this, R.color.card),
                 Ui.color(this, R.color.card_border), 20));
         k.setClickable(true);
@@ -283,16 +303,21 @@ public final class DialActivity extends Activity {
         digit.setGravity(Gravity.CENTER);
         digit.setIncludeFontPadding(false);
         digit.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-        k.addView(digit);
+        k.addView(digit, new android.widget.FrameLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, Gravity.CENTER));
 
-        String small = c == '0' ? getString(R.string.dial_zero_hint) : DialNumber.letters(c);
-        // Every key keeps the second line, so all digits sit at the same height.
-        TextView letters = Ui.text(this, small.isEmpty() ? " " : small, LETTERS_SP);
-        letters.setTextColor(Ui.color(this, R.color.text_muted));
-        letters.setGravity(Gravity.CENTER);
-        letters.setMaxLines(1);
-        letters.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
-        k.addView(letters);
+        if (c == '0') {
+            TextView hint = Ui.bold(this, "+", LETTERS_SP + 6);
+            hint.setTextColor(Ui.color(this, R.color.text_muted));
+            hint.setMaxLines(1);
+            hint.setImportantForAccessibility(View.IMPORTANT_FOR_ACCESSIBILITY_NO);
+            android.widget.FrameLayout.LayoutParams hlp = new android.widget.FrameLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT,
+                    Gravity.TOP | Gravity.END);
+            hlp.topMargin = Ui.dp(this, 4);
+            hlp.setMarginEnd(Ui.dp(this, 12));
+            k.addView(hint, hlp);
+        }
 
         if (c == '*') k.setContentDescription(getString(R.string.dial_star));
         else if (c == '#') k.setContentDescription(getString(R.string.dial_hash));
