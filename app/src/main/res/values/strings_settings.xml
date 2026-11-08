@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The helper's settings (SettingsActivity). -->
+    <string name="settings_title">Settings</string>
+    <string name="settings_lock">Lock</string>
+    <string name="settings_lock_hint">Press and hold the button to lock.</string>
+    <string name="settings_lock_explain">When locked, the favourites stay as they are: the stars cannot be changed, and contacts cannot be added, edited or deleted. Settings is hidden too. To unlock, press and hold the padlock on the contact list.</string>
+    <string name="settings_colours">Colours</string>
+    <string name="settings_colour_light">Light</string>
+    <string name="settings_colour_dark">Dark</string>
+    <string name="settings_colour_high_contrast">High contrast</string>
+    <string name="settings_colour_colourful">Colourful</string>
+    <string name="settings_colour_chosen">%1$s ✓</string>
+    <string name="settings_colours_explain">Choose what is easiest to read: Light, Dark, High contrast (white on black), or Colourful (each contact’s picture in its own colour).</string>
+    <string name="settings_phone_app">Phone app</string>
+    <string name="settings_phone_app_yes">This is the phone app ✓</string>
+    <string name="settings_phone_app_no">Not yet the phone app</string>
+    <string name="settings_phone_app_unavailable">This device cannot make phone calls.</string>
+    <string name="settings_phone_app_make">Make this the phone app</string>
+    <string name="settings_phone_app_choose">Choose in the phone’s settings</string>
+    <string name="settings_phone_app_explain">Only the phone app shows incoming calls and calls in progress. As the phone app, this app shows them big and simple.</string>
+    <string name="settings_phone">Phone settings</string>
+    <string name="settings_phone_explain">Opens the phone’s own settings, for example ringtone, volume, brightness and text size.</string>
+</resources>

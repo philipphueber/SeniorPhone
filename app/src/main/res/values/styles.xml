@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The family look of SeniorAlert: dark text on a warm off-white page, white
+         cards, high contrast. The system bars take the page colour with dark icons.
+         Content is kept clear of the bars in code (fitsSystemWindows). -->
+    <style name="AppTheme.Base" parent="android:Theme.Material.Light.NoActionBar">
+        <item name="android:windowBackground">@color/page</item>
+        <item name="android:colorAccent">@color/green</item>
+        <item name="android:colorPrimary">@color/green</item>
+        <item name="android:statusBarColor">@color/page</item>
+        <item name="android:navigationBarColor">@color/page</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <style name="AppTheme" parent="AppTheme.Base" />
+
+
+    <!-- Colours shared by every screen. Each one has one job. -->
+    <color name="page">#F4F2ED</color>
+    <color name="card">#FFFFFF</color>
+    <color name="card_border">#D9D5CC</color>
+    <color name="text_black">#1C1B19</color>
+    <color name="text_muted">#5F5B54</color>
+    <!-- Primary / positive action, and "charging". -->
+    <color name="green">#2E7D32</color>
+    <color name="green_light">#DCEFD9</color>
+    <!-- Battery level gauge on battery: light enough for dark text on top. -->
+    <color name="battery_fill">#A5D6A7</color>
+    <!-- Secondary / neutral action (Cancel, page buttons). -->
+    <color name="blue">#1F5F8B</color>
+    <!-- Remove, and "battery low". -->
+    <color name="red">#C62828</color>
+    <color name="red_light">#FBE1E0</color>
+    <color name="disabled_bg">#E6E3DC</color>
+    <color name="disabled_text">#9A958C</color>
+    <color name="press_dark">#33000000</color>
+    <color name="press_light">#55FFFFFF</color>
+</resources>

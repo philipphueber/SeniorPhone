@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Kontaktliste (ContactsActivity) -->
+    <string name="contacts_title">Kontakte</string>
+    <string name="contacts_dialpad">Tastenfeld</string>
+    <string name="contacts_settings">Einstellungen</string>
+    <string name="contacts_search_hint">Namen suchen</string>
+    <string name="contacts_new">Neuer Kontakt</string>
+    <string name="contacts_loading">Kontakte werden geladen …</string>
+    <string name="contacts_none">Noch keine Kontakte. Tippen Sie auf „Neuer Kontakt“.</string>
+    <string name="contacts_none_locked">Noch keine Kontakte.</string>
+    <string name="contacts_no_match">Kein Kontakt für „%1$s“ gefunden.</string>
+    <string name="contacts_favourites">Favoriten</string>
+    <string name="contacts_other_header_cd">Sonstige</string>
+    <string name="contacts_no_name">Ohne Namen</string>
+    <string name="contacts_row_favourite_cd">%1$s, Favorit</string>
+    <string name="contacts_star_cd">%1$s zu den Favoriten hinzufügen</string>
+    <string name="contacts_unstar_cd">%1$s aus den Favoriten entfernen</string>
+    <string name="contacts_starred_now">%1$s ist jetzt ein Favorit</string>
+    <string name="contacts_unstarred_now">%1$s ist kein Favorit mehr</string>
+    <string name="contacts_locked_desc">Gesperrt. Zum Entsperren gedrückt halten.</string>
+    <string name="contacts_unlock_question">Entsperren?</string>
+    <string name="contacts_unlock">Entsperren</string>
+
+    <!-- Berechtigung für Kontakte -->
+    <string name="contacts_permission_title">Zugriff auf Kontakte nötig</string>
+    <string name="contacts_permission_text">Um Ihre Kontakte zu zeigen, braucht diese App Zugriff darauf. Die Kontakte bleiben auf diesem Telefon.</string>
+    <string name="contacts_permission_allow">Zugriff erlauben</string>
+    <string name="contacts_permission_settings_text">Um Ihre Kontakte zu zeigen, braucht diese App Zugriff darauf. Bitte öffnen Sie die Einstellungen und erlauben Sie unter „Berechtigungen“ die „Kontakte“.</string>
+    <string name="contacts_permission_settings">Einstellungen öffnen</string>
+
+    <!-- Kontaktseite (ContactActivity) -->
+    <string name="contacts_edit">Ändern</string>
+    <string name="contacts_delete">Löschen</string>
+    <string name="contacts_is_favourite">Favorit</string>
+    <string name="contacts_number">Telefonnummer</string>
+    <string name="contacts_no_number">Dieser Kontakt hat keine Telefonnummer.</string>
+    <string name="contacts_call_type">%1$s · %2$s</string>
+    <string name="contacts_call_cd">%1$s anrufen</string>
+    <string name="contacts_call_type_cd">%1$s anrufen, %2$s</string>
+    <string name="contacts_call_question">%1$s anrufen?</string>
+    <string name="contacts_call_question_type">%1$s anrufen (%2$s)?</string>
+    <string name="contacts_delete_question">%1$s löschen?</string>
+    <string name="contacts_delete_failed">Der Kontakt konnte nicht gelöscht werden.</string>
+
+    <!-- Neuer / geänderter Kontakt (EditContactActivity) -->
+    <string name="contacts_new_title">Neuer Kontakt</string>
+    <string name="contacts_edit_title">Kontakt ändern</string>
+    <string name="contacts_first_name">Vorname</string>
+    <string name="contacts_last_name">Nachname</string>
+    <string name="contacts_phone_number">Telefonnummer</string>
+    <string name="contacts_save">Speichern</string>
+    <string name="contacts_error_no_name">Bitte geben Sie einen Namen ein.</string>
+    <string name="contacts_error_no_number">Bitte geben Sie eine Telefonnummer ein.</string>
+    <string name="contacts_error_bad_number">Das ist keine Telefonnummer. Bitte nur Ziffern, und + nur am Anfang.</string>
+    <string name="contacts_error_save">Der Kontakt konnte nicht gespeichert werden.</string>
+    <string name="contacts_error_permission">Ohne Zugriff auf die Kontakte kann nichts gespeichert werden.</string>
+    <plurals name="contacts_edit_more_numbers">
+        <item quantity="one">Dieser Kontakt hat noch %d weitere Nummer. Sie bleibt erhalten.</item>
+        <item quantity="other">Dieser Kontakt hat noch %d weitere Nummern. Sie bleiben erhalten.</item>
+    </plurals>
+    <string name="contacts_back_to_call">Zurück zum Anruf</string>
+</resources>

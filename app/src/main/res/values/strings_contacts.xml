@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Contact list (ContactsActivity) -->
+    <string name="contacts_title">Contacts</string>
+    <string name="contacts_dialpad">Number pad</string>
+    <string name="contacts_settings">Settings</string>
+    <string name="contacts_search_hint">Search a name</string>
+    <string name="contacts_new">New contact</string>
+    <string name="contacts_loading">Loading contacts…</string>
+    <string name="contacts_none">No contacts yet. Tap “New contact” to add one.</string>
+    <string name="contacts_none_locked">No contacts yet.</string>
+    <string name="contacts_no_match">No contact found for “%1$s”.</string>
+    <string name="contacts_favourites">Favourites</string>
+    <string name="contacts_other_header_cd">Other</string>
+    <string name="contacts_no_name">No name</string>
+    <!-- TalkBack: a row of a favourite, e.g. "Maria Schmidt, favourite". -->
+    <string name="contacts_row_favourite_cd">%1$s, favourite</string>
+    <string name="contacts_star_cd">Make %1$s a favourite</string>
+    <string name="contacts_unstar_cd">Remove %1$s from favourites</string>
+    <string name="contacts_starred_now">%1$s is now a favourite</string>
+    <string name="contacts_unstarred_now">%1$s is no longer a favourite</string>
+    <string name="contacts_locked_desc">Locked. Press and hold to unlock.</string>
+    <string name="contacts_unlock_question">Unlock?</string>
+    <string name="contacts_unlock">Unlock</string>
+
+    <!-- Asking for the contacts permission -->
+    <string name="contacts_permission_title">Access to contacts needed</string>
+    <string name="contacts_permission_text">To show your contacts, this app needs access to them. The contacts stay on this phone.</string>
+    <string name="contacts_permission_allow">Allow access</string>
+    <string name="contacts_permission_settings_text">To show your contacts, this app needs access to them. Please open the settings and allow “Contacts” under “Permissions”.</string>
+    <string name="contacts_permission_settings">Open settings</string>
+
+    <!-- Contact page (ContactActivity) -->
+    <string name="contacts_edit">Edit</string>
+    <string name="contacts_delete">Delete</string>
+    <string name="contacts_is_favourite">Favourite</string>
+    <string name="contacts_number">Phone number</string>
+    <string name="contacts_no_number">This contact has no phone number.</string>
+    <!-- A Call button when there are several numbers: "Call · Mobile". -->
+    <string name="contacts_call_type">%1$s · %2$s</string>
+    <string name="contacts_call_cd">Call %1$s</string>
+    <string name="contacts_call_type_cd">Call %1$s, %2$s</string>
+    <string name="contacts_call_question">Call %1$s?</string>
+    <string name="contacts_call_question_type">Call %1$s (%2$s)?</string>
+    <string name="contacts_delete_question">Delete %1$s?</string>
+    <string name="contacts_delete_failed">The contact could not be deleted.</string>
+
+    <!-- New / edit contact (EditContactActivity) -->
+    <string name="contacts_new_title">New contact</string>
+    <string name="contacts_edit_title">Edit contact</string>
+    <string name="contacts_first_name">First name</string>
+    <string name="contacts_last_name">Last name</string>
+    <string name="contacts_phone_number">Phone number</string>
+    <string name="contacts_save">Save</string>
+    <string name="contacts_error_no_name">Please enter a name.</string>
+    <string name="contacts_error_no_number">Please enter a phone number.</string>
+    <string name="contacts_error_bad_number">This is not a phone number. Use digits, and + only at the start.</string>
+    <string name="contacts_error_save">The contact could not be saved.</string>
+    <string name="contacts_error_permission">Without access to contacts, nothing can be saved.</string>
+    <plurals name="contacts_edit_more_numbers">
+        <item quantity="one">This contact has %d more number. It stays as it is.</item>
+        <item quantity="other">This contact has %d more numbers. They stay as they are.</item>
+    </plurals>
+    <string name="contacts_back_to_call">Back to the call</string>
+</resources>

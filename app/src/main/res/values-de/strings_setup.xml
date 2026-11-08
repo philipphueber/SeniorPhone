@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setup_role_question">Diese App als Telefon-App festlegen?</string>
+    <string name="setup_role_explain">Dann erscheinen eingehende und laufende Anrufe groß und einfach in dieser App. Das Telefon fragt danach noch einmal zur Bestätigung.</string>
+    <string name="setup_role_yes">Als Telefon-App festlegen</string>
+</resources>

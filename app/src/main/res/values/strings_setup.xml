@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Asked once per app start while this is not the default phone app (Role). -->
+    <string name="setup_role_question">Make this the phone app?</string>
+    <string name="setup_role_explain">Then incoming calls and calls in progress appear on this app’s big, simple screen. The phone asks once more to confirm.</string>
+    <string name="setup_role_yes">Make it the phone app</string>
+</resources>

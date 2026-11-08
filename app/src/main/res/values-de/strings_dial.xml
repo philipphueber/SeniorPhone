@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="dial_hint">Nummer eingeben</string>
+    <string name="dial_delete">Löschen</string>
+    <string name="dial_delete_all">Ganze Nummer löschen</string>
+    <string name="dial_zero_hint">Halten: +</string>
+    <string name="dial_zero_description">0. Halten für Plus</string>
+    <string name="dial_plus">plus</string>
+    <string name="dial_star">Stern</string>
+    <string name="dial_hash">Raute</string>
+</resources>

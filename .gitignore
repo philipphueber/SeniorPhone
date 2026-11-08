@@ -1,0 +1,23 @@
+# Personal Claude Code overrides and session worktrees
+.claude/settings.local.json
+.claude/worktrees/
+
+# Gradle / Android build output
+.gradle/
+build/
+local.properties
+*.apk
+*.aab
+captures/
+
+# Release signing: per-maintainer, never committed. See README.md.
+keystore.properties
+*.jks
+*.keystore
+
+# IDE
+.idea/
+*.iml
+
+# OS
+.DS_Store

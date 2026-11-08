@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="call_channel">Anrufe</string>
+    <string name="call_channel_description">Eingehende und laufende Anrufe. Bitte eingeschaltet lassen: Damit erscheint der Anrufbildschirm auch bei gesperrtem Telefon.</string>
+    <string name="call_channel_quiet">Laufende Anrufe</string>
+    <string name="call_channel_quiet_description">Zeigt ein laufendes Gespräch, mit einer Taste zum Auflegen.</string>
+    <string name="call_unknown_number">Unbekannte Nummer</string>
+    <string name="call_is_calling">ruft an</string>
+    <string name="call_waiting_hint">Wenn Sie annehmen, wird Ihr anderes Gespräch gehalten.</string>
+    <string name="call_answer">Annehmen</string>
+    <string name="call_decline">Ablehnen</string>
+    <string name="call_hang_up">Auflegen</string>
+    <string name="call_calling">Wird angerufen …</string>
+    <string name="call_please_wait">Bitte warten …</string>
+    <string name="call_connected">Verbunden</string>
+    <string name="call_connected_for">Verbunden · %1$s</string>
+    <string name="call_on_hold">Gehalten</string>
+    <string name="call_continue">Gespräch fortsetzen</string>
+    <string name="call_speaker">Lautsprecher</string>
+    <string name="call_speaker_on">ist an</string>
+    <string name="call_speaker_off">ist aus</string>
+    <string name="call_louder">Lauter</string>
+    <string name="call_loudest">Das ist bereits die lauteste Stufe.</string>
+    <string name="call_choose_sim">Welche SIM-Karte soll verwendet werden?</string>
+    <string name="call_sim_n">SIM %1$d</string>
+    <string name="call_no_sim">Dieser Anruf ist nicht möglich: Keine SIM-Karte ist bereit.</string>
+    <string name="call_cancel_call">Anruf abbrechen</string>
+    <string name="call_ended">Anruf beendet</string>
+    <string name="call_ended_declined">Anruf abgelehnt</string>
+    <string name="call_ended_missed">Verpasster Anruf</string>
+    <string name="call_ended_busy">Die Leitung ist besetzt</string>
+    <string name="call_ended_failed">Der Anruf kam nicht zustande</string>
+    <string name="call_failed_to_start">Der Anruf konnte nicht gestartet werden.</string>
+</resources>

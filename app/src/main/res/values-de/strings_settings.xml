@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings_title">Einstellungen</string>
+    <string name="settings_lock">Sperren</string>
+    <string name="settings_lock_hint">Halten Sie die Taste gedrückt, um zu sperren.</string>
+    <string name="settings_lock_explain">Wenn gesperrt, bleiben die Favoriten, wie sie sind: Die Sterne lassen sich nicht ändern, und Kontakte können nicht hinzugefügt, bearbeitet oder gelöscht werden. Auch die Einstellungen sind dann verborgen. Zum Entsperren halten Sie das Schloss in der Kontaktliste gedrückt.</string>
+    <string name="settings_colours">Farben</string>
+    <string name="settings_colour_light">Hell</string>
+    <string name="settings_colour_dark">Dunkel</string>
+    <string name="settings_colour_high_contrast">Hoher Kontrast</string>
+    <string name="settings_colour_colourful">Bunt</string>
+    <string name="settings_colour_chosen">%1$s ✓</string>
+    <string name="settings_colours_explain">Wählen Sie, was am besten zu lesen ist: Hell, Dunkel, Hoher Kontrast (weiß auf schwarz) oder Bunt (jedes Kontaktbild in einer eigenen Farbe).</string>
+    <string name="settings_phone_app">Telefon-App</string>
+    <string name="settings_phone_app_yes">Dies ist die Telefon-App ✓</string>
+    <string name="settings_phone_app_no">Noch nicht die Telefon-App</string>
+    <string name="settings_phone_app_unavailable">Mit diesem Gerät kann man nicht telefonieren.</string>
+    <string name="settings_phone_app_make">Als Telefon-App festlegen</string>
+    <string name="settings_phone_app_choose">In den Telefon-Einstellungen wählen</string>
+    <string name="settings_phone_app_explain">Nur die Telefon-App zeigt eingehende und laufende Anrufe an. Als Telefon-App zeigt diese App sie groß und einfach.</string>
+    <string name="settings_phone">Telefon-Einstellungen</string>
+    <string name="settings_phone_explain">Öffnet die Einstellungen des Telefons, zum Beispiel für Klingelton, Lautstärke, Helligkeit und Schriftgröße.</string>
+</resources>
