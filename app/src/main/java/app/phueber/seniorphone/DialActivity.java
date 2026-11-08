@@ -149,9 +149,13 @@ public final class DialActivity extends Activity {
             display.setMaxLines(2); // the hint may wrap rather than be cut
             display.setEllipsize(TextUtils.TruncateAt.END);
         } else {
-            display.setMaxLines(1);
-            display.setEllipsize(TextUtils.TruncateAt.START);
-            display.setAutoSizeTextTypeUniformWithConfiguration(20, 48, 2, TypedValue.COMPLEX_UNIT_SP);
+            // The whole number always shows: never cut, it shrinks and takes a
+            // second line instead. Sized in dp, not sp, because auto-size already
+            // makes it as big as the box allows; in sp a large font setting would
+            // raise the smallest size until a long number no longer fits.
+            display.setEllipsize(null);
+            display.setMaxLines(2);
+            display.setAutoSizeTextTypeUniformWithConfiguration(14, 48, 1, TypedValue.COMPLEX_UNIT_DIP);
         }
     }
 
@@ -175,15 +179,12 @@ public final class DialActivity extends Activity {
         top.setPadding(p, Ui.dp(this, 12), p, Ui.dp(this, 8));
 
         display = Ui.bold(this, "", 48);
-        display.setMaxLines(1);
-        display.setEllipsize(TextUtils.TruncateAt.START); // a very long number shows its end
         display.setGravity(Gravity.CENTER);
-        display.setAutoSizeTextTypeUniformWithConfiguration(20, 48, 2, TypedValue.COMPLEX_UNIT_SP);
         display.setHint(R.string.dial_hint);
         // Empty, the field shows the hint "Type a number". Auto-size only shrinks
         // typed text, never a hint, so at a large font size the hint would be cut
         // to "...mber". While empty: a smaller fixed size on up to two lines; once a
-        // digit is typed: auto-size again, cut at the start so the end shows.
+        // digit is typed: auto-size again, on up to two lines, never cut.
         display.addTextChangedListener(new android.text.TextWatcher() {
             @Override public void beforeTextChanged(CharSequence s, int a, int b, int c) { }
             @Override public void onTextChanged(CharSequence s, int a, int b, int c) { }
