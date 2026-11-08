@@ -240,6 +240,11 @@ final class Contacts {
         String family = ContactForm.cleanName(last);
         String tel = ContactForm.cleanNumber(number);
         ArrayList<ContentProviderOperation> ops = new ArrayList<>();
+        // The same person's rows from other accounts, updated in a second batch:
+        // one of them may belong to a read-only account (a third-party app can't
+        // ask the provider which), and in the same batch it would fail the
+        // helper's own edit too.
+        ArrayList<ContentProviderOperation> siblings = new ArrayList<>();
         try {
             if (d.contactId < 0) {
                 ops.add(ContentProviderOperation.newInsert(RawContacts.CONTENT_URI)
@@ -284,7 +289,7 @@ final class Contacts {
                 // provider may pick that one as the display name: change those too.
                 for (long sibling : siblingRows(cr, d.contactId, StructuredName.CONTENT_ITEM_TYPE,
                         null, d.nameDataId)) {
-                    ops.add(ContentProviderOperation.newUpdate(Data.CONTENT_URI)
+                    siblings.add(ContentProviderOperation.newUpdate(Data.CONTENT_URI)
                             .withSelection(Data._ID + "=?", new String[] { String.valueOf(sibling) })
                             .withValue(StructuredName.GIVEN_NAME, given)
                             .withValue(StructuredName.FAMILY_NAME, family)
@@ -302,7 +307,7 @@ final class Contacts {
                     // would otherwise show up as a second, old number.
                     for (long sibling : siblingRows(cr, d.contactId, Phone.CONTENT_ITEM_TYPE,
                             oldKey, d.phoneDataId)) {
-                        ops.add(ContentProviderOperation.newUpdate(Data.CONTENT_URI)
+                        siblings.add(ContentProviderOperation.newUpdate(Data.CONTENT_URI)
                                 .withSelection(Data._ID + "=?", new String[] { String.valueOf(sibling) })
                                 .withValue(Phone.NUMBER, tel)
                                 .build());
@@ -317,6 +322,14 @@ final class Contacts {
                         .build());
             }
             cr.applyBatch(ContactsContract.AUTHORITY, ops);
+            if (!siblings.isEmpty()) {
+                try {
+                    cr.applyBatch(ContactsContract.AUTHORITY, siblings);
+                } catch (Exception e) {
+                    // Best effort: the helper's edit is saved; a read-only copy elsewhere
+                    // may still show the old value, as in any contacts app.
+                }
+            }
             // A changed name can make the provider re-aggregate; follow the raw contact.
             long now = contactOfRaw(cr, d.rawContactId);
             return now >= 0 ? now : d.contactId;
