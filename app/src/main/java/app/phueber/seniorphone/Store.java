@@ -15,13 +15,29 @@ public final class Store {
     private static final String K_THEME = "theme";
 
     private final SharedPreferences prefs;
+    private final Context app;
 
     public Store(Context context) {
-        prefs = context.getApplicationContext().getSharedPreferences(FILE, Context.MODE_PRIVATE);
+        app = context.getApplicationContext();
+        prefs = app.getSharedPreferences(FILE, Context.MODE_PRIVATE);
     }
 
-    /** Locked: favourites fixed, no editing, deleting or adding contacts. */
-    public synchronized boolean locked() {
+    /**
+     * Locked: favourites fixed, no editing, deleting or adding contacts. Locked
+     * when the helper locked SeniorLauncher's home screen, or (without the
+     * launcher) this app's own lock.
+     */
+    public boolean locked() {
+        return lockedByLauncher() || ownLock();
+    }
+
+    /** The home screen is locked; it can only be unlocked there. */
+    public boolean lockedByLauncher() {
+        return LauncherLock.locked(app);
+    }
+
+    /** This app's own lock, used when SeniorLauncher is not installed. */
+    public synchronized boolean ownLock() {
         return prefs.getBoolean(K_LOCKED, false);
     }
 

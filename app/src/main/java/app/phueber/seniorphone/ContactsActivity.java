@@ -143,7 +143,25 @@ public final class ContactsActivity extends Activity {
     protected void onStart() {
         super.onStart();
         observe();
+        // The helper may lock or unlock the home screen while we are open
+        // (split screen, or quick switching): follow at once.
+        try {
+            getContentResolver().registerContentObserver(LauncherLock.STATE, false, lockObserver);
+        } catch (RuntimeException ignored) {
+            // no launcher: our own lock only, checked in onResume
+        }
     }
+
+    private final ContentObserver lockObserver = new ContentObserver(Contacts.MAIN) {
+        @Override public void onChange(boolean selfChange) {
+            boolean nowLocked = store.locked();
+            if (nowLocked == locked) return;
+            locked = nowLocked;
+            dismissDialog();
+            renderLock();
+            showContent();
+        }
+    };
 
     @Override
     protected void onResume() {
@@ -169,6 +187,7 @@ public final class ContactsActivity extends Activity {
             observer = null;
         }
         Contacts.MAIN.removeCallbacks(reload);
+        getContentResolver().unregisterContentObserver(lockObserver);
         dismissDialog();
     }
 
@@ -271,6 +290,9 @@ public final class ContactsActivity extends Activity {
             if (!store.locked()) startActivity(new Intent(this, EditContactActivity.class));
         });
         page.addView(newContact, Ui.fullWidth(this, 8));
+        // Back at the bottom, like every Senior app: many seniors do not know the
+        // system back gesture. Here it leaves the app.
+        page.addView(Ui.backButton(this), Ui.fullWidth(this, 8));
         return page;
     }
 
@@ -392,6 +414,16 @@ public final class ContactsActivity extends Activity {
         lock.setLongClickable(true);
         lock.setOnLongClickListener(v -> {
             dismissDialog();
+            if (store.lockedByLauncher()) {
+                // Locked together with the home screen: only the home screen
+                // unlocks, so this app cannot lift the helper's lock.
+                dialog = Ui.confirm(this, getString(R.string.contacts_locked_by_launcher),
+                        getString(R.string.contacts_go_home), R.color.green, () ->
+                                startActivity(new Intent(Intent.ACTION_MAIN)
+                                        .addCategory(Intent.CATEGORY_HOME)
+                                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
+                return true;
+            }
             dialog = Ui.confirm(this, getString(R.string.contacts_unlock_question),
                     getString(R.string.contacts_unlock), R.color.green, () -> {
                         store.setLocked(false);

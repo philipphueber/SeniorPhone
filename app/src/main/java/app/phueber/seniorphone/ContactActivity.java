@@ -74,6 +74,10 @@ public final class ContactActivity extends Activity {
         scroll.addView(content);
         page.addView(scroll, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, 0, 1));
+        // Back pinned at the bottom, as on every Senior screen.
+        LinearLayout.LayoutParams blp = Ui.fullWidth(this, 8);
+        blp.bottomMargin = Ui.dp(this, 12);
+        page.addView(Ui.backButton(this), blp);
         // fitsSystemWindows on a frame of its own: on the padded page itself it
         // would replace the side padding with the (zero) side insets.
         android.widget.FrameLayout frame = new android.widget.FrameLayout(this);
@@ -130,8 +134,11 @@ public final class ContactActivity extends Activity {
 
     private void renderTopBar() {
         topBar.removeAllViews();
-        addTop(R.drawable.ic_arrow_back, getString(R.string.back), R.color.text_black, v -> finish());
-        if (store.locked()) return;
+        // Back is at the bottom; the top holds the helper's Edit and Delete,
+        // and disappears when locked.
+        boolean locked = store.locked();
+        topBar.setVisibility(locked ? View.GONE : View.VISIBLE);
+        if (locked) return;
         addTop(R.drawable.ic_contacts_edit, getString(R.string.contacts_edit), R.color.text_black,
                 v -> {
                     if (store.locked()) return;

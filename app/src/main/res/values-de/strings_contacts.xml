@@ -60,4 +60,6 @@
         <item quantity="other">Dieser Kontakt hat noch %d weitere Nummern. Sie bleiben erhalten.</item>
     </plurals>
     <string name="contacts_back_to_call">Zurück zum Anruf</string>
+    <string name="contacts_locked_by_launcher">Zusammen mit der Startseite gesperrt. Zum Entsperren halten Sie das Schloss auf der Startseite gedrückt.</string>
+    <string name="contacts_go_home">Zur Startseite</string>
 </resources>

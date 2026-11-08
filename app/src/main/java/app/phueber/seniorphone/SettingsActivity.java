@@ -34,24 +34,33 @@ public final class SettingsActivity extends Activity {
         declined = savedInstanceState != null && savedInstanceState.getBoolean(STATE_DECLINED);
         LinearLayout content = Ui.screen(this, getString(R.string.settings_title));
 
-        // Lock: long press only, like the unlock on the contact list, so a senior
-        // tapping around cannot lock by accident. A short tap says what to do.
-        Button lock = Ui.button(this, getString(R.string.settings_lock), R.color.green);
-        TextView hint = Ui.bold(this, getString(R.string.settings_lock_hint), Ui.TEXT_BODY);
-        hint.setTextColor(Ui.color(this, R.color.red));
-        hint.setVisibility(View.GONE);
-        lock.setOnClickListener(v -> {
-            hint.setVisibility(View.VISIBLE);
-            hint.announceForAccessibility(hint.getText());
-        });
-        lock.setOnLongClickListener(v -> {
-            store.setLocked(true);
-            finish(); // back to the contact list, which now shows only the padlock
-            return true;
-        });
-        content.addView(lock, Ui.fullWidth(this, 8));
-        content.addView(hint, Ui.fullWidth(this, 8));
-        content.addView(explanation(getString(R.string.settings_lock_explain)), Ui.fullWidth(this, 8));
+        if (LauncherLock.present(this)) {
+            // SeniorLauncher is installed: one lock for the whole phone, set and
+            // lifted on the home screen. A second lock here would only confuse.
+            content.addView(heading(getString(R.string.settings_lock)), Ui.fullWidth(this, 8));
+            content.addView(explanation(getString(store.lockedByLauncher()
+                    ? R.string.settings_lock_with_launcher_on
+                    : R.string.settings_lock_with_launcher_off)), Ui.fullWidth(this, 8));
+        } else {
+            // Lock: long press only, like the unlock on the contact list, so a senior
+            // tapping around cannot lock by accident. A short tap says what to do.
+            Button lock = Ui.button(this, getString(R.string.settings_lock), R.color.green);
+            TextView hint = Ui.bold(this, getString(R.string.settings_lock_hint), Ui.TEXT_BODY);
+            hint.setTextColor(Ui.color(this, R.color.red));
+            hint.setVisibility(View.GONE);
+            lock.setOnClickListener(v -> {
+                hint.setVisibility(View.VISIBLE);
+                hint.announceForAccessibility(hint.getText());
+            });
+            lock.setOnLongClickListener(v -> {
+                store.setLocked(true);
+                finish(); // back to the contact list, which now shows only the padlock
+                return true;
+            });
+            content.addView(lock, Ui.fullWidth(this, 8));
+            content.addView(hint, Ui.fullWidth(this, 8));
+            content.addView(explanation(getString(R.string.settings_lock_explain)), Ui.fullWidth(this, 8));
+        }
 
         // Colours: a few fixed, tested themes, no free picker (see Palette).
         // The chosen one is green with a tick; the others are outlined.

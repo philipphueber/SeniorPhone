@@ -30,7 +30,8 @@ colour theme (`Store`).
 | `Role` | Asks once per start to become the phone app; Settings shows the state. |
 | `SettingsActivity` | Lock (long press), Colours, Phone app, phone settings. |
 | `Ui`, `Palette` | Copied from SeniorLauncher: shared buttons, screens and dialogs; the four colour themes, contrast-tested. |
-| `Store` | Lock flag and theme. |
+| `Store` | Own lock flag and theme; `locked()` is the launcher's lock or our own. |
+| `LauncherLock` | Reads SeniorLauncher's lock. |
 
 ## A call can always be answered, declined and ended
 
@@ -62,10 +63,20 @@ This is the part that must never fail.
 
 ## Lock
 
-Same as the launcher: Settings → Lock needs a long press. Locked, Settings is
-replaced by a padlock, favourites keep their star but it cannot be tapped,
-others show no star, and New contact, Edit and Delete disappear. Holding the
-padlock asks "Unlock?". No PIN, on purpose: it protects against accidents.
+One lock for the whole phone. With SeniorLauncher installed, this app follows
+the home screen's lock (`LauncherLock` reads the launcher's read-only
+`LockProvider`; a ContentObserver follows changes while the list is open).
+Settings then only explains that, and holding the padlock here says to unlock
+on the home screen: this app can see the lock but never lift it. Without the
+launcher, Settings → Lock (long press) is this app's own lock, unlocked by
+holding the padlock.
+
+Locked: Settings is replaced by a padlock, favourites keep their star but it
+cannot be tapped, others show no star, and New contact, Edit and Delete
+disappear. Calling works as always. No PIN, on purpose: it protects against
+accidents.
+
+Every screen has its Back button at the bottom, like the other Senior apps.
 
 ## Permissions
 

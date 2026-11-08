@@ -18,6 +18,11 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
 
+    <!-- Android 11+ only lets us see SeniorLauncher's lock if we say we look for it. -->
+    <queries>
+        <provider android:authorities="app.phueber.seniorlauncher.lock" />
+    </queries>
+
     <application
         android:allowBackup="false"
         android:icon="@drawable/ic_launcher"

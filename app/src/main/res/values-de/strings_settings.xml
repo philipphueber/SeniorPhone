@@ -20,4 +20,6 @@
     <string name="settings_phone_app_explain">Nur die Telefon-App zeigt eingehende und laufende Anrufe an. Als Telefon-App zeigt diese App sie groß und einfach.</string>
     <string name="settings_phone">Telefon-Einstellungen</string>
     <string name="settings_phone_explain">Öffnet die Einstellungen des Telefons, zum Beispiel für Klingelton, Lautstärke, Helligkeit und Schriftgröße.</string>
+    <string name="settings_lock_with_launcher_off">Die Telefon-App wird zusammen mit der Startseite gesperrt. Zum Sperren gehen Sie zur Startseite: Einstellungen → Sperren (gedrückt halten). Danach können keine Kontakte hinzugefügt werden, und die Favoriten bleiben, wie sie sind.</string>
+    <string name="settings_lock_with_launcher_on">Zusammen mit der Startseite gesperrt. Zum Entsperren halten Sie das Schloss auf der Startseite gedrückt.</string>
 </resources>

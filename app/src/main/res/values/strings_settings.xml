@@ -21,4 +21,6 @@
     <string name="settings_phone_app_explain">Only the phone app shows incoming calls and calls in progress. As the phone app, this app shows them big and simple.</string>
     <string name="settings_phone">Phone settings</string>
     <string name="settings_phone_explain">Opens the phone’s own settings, for example ringtone, volume, brightness and text size.</string>
+    <string name="settings_lock_with_launcher_off">The phone app locks together with the home screen. To lock, go to the home screen: Settings → Lock (press and hold). Then no contacts can be added and favourites stay as they are.</string>
+    <string name="settings_lock_with_launcher_on">Locked together with the home screen. To unlock, press and hold the padlock on the home screen.</string>
 </resources>

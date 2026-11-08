@@ -38,9 +38,11 @@ Needs Android 8.0 or newer and a phone with a SIM card.
 - Tap the star next to a person to make them a favourite; they move to the top.
 - **New contact** adds a person; on their page, **Edit** and **Delete**.
 - **Settings → Colours**: Light, Dark, High contrast or Colourful.
-- **Settings → Lock**: press and hold. Afterwards the favourites stay as they
-  are, and nobody can be added, changed or deleted by accident. Calling still
-  works. To unlock, press and hold the padlock at the top.
+- **Lock**: locking the home screen (SeniorLauncher: Settings → Lock) locks
+  the phone too. Afterwards the favourites stay as they are, and nobody can be
+  added, changed or deleted by accident. Calling still works. Unlock on the home
+  screen. Without SeniorLauncher: Settings → Lock here (press and hold), and
+  hold the padlock to unlock.
 
 ## SeniorPhone (Deutsch)
 
@@ -81,10 +83,12 @@ Benötigt Android 8.0 oder neuer und ein Telefon mit SIM-Karte.
 - **Neuer Kontakt** legt eine Person an; auf ihrer Seite **Ändern** und
   **Löschen**.
 - **Einstellungen → Farben**: Hell, Dunkel, Hoher Kontrast oder Bunt.
-- **Einstellungen → Sperren**: gedrückt halten. Danach bleiben die Favoriten,
-  wie sie sind, und niemand kann aus Versehen hinzugefügt, geändert oder
-  gelöscht werden. Anrufen geht weiterhin. Zum Entsperren das Schloss oben
-  gedrückt halten.
+- **Sperren**: Wird die Startseite gesperrt (SeniorLauncher: Einstellungen →
+  Sperren), ist auch das Telefon gesperrt. Danach bleiben die Favoriten, wie sie
+  sind, und niemand kann aus Versehen hinzugefügt, geändert oder gelöscht
+  werden. Anrufen geht weiterhin. Entsperrt wird auf der Startseite. Ohne
+  SeniorLauncher: hier Einstellungen → Sperren (gedrückt halten), zum Entsperren
+  das Schloss gedrückt halten.
 
 ## Contributing
 

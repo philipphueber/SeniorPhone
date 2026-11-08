@@ -62,4 +62,6 @@
         <item quantity="other">This contact has %d more numbers. They stay as they are.</item>
     </plurals>
     <string name="contacts_back_to_call">Back to the call</string>
+    <string name="contacts_locked_by_launcher">Locked together with the home screen. To unlock, press and hold the padlock on the home screen.</string>
+    <string name="contacts_go_home">Go to the home screen</string>
 </resources>
