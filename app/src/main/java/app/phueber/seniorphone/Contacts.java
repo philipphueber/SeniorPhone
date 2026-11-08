@@ -278,11 +278,36 @@ final class Contacts {
                         .withValue(StructuredName.FAMILY_NAME, family)
                         .build());
             }
+            if (d.nameDataId >= 0 && !given.equals(ContactForm.cleanName(d.first))
+                    || d.nameDataId >= 0 && !family.equals(ContactForm.cleanName(d.last))) {
+                // The same person from another account has its own name row, and the
+                // provider may pick that one as the display name: change those too.
+                for (long sibling : siblingRows(cr, d.contactId, StructuredName.CONTENT_ITEM_TYPE,
+                        null, d.nameDataId)) {
+                    ops.add(ContentProviderOperation.newUpdate(Data.CONTENT_URI)
+                            .withSelection(Data._ID + "=?", new String[] { String.valueOf(sibling) })
+                            .withValue(StructuredName.GIVEN_NAME, given)
+                            .withValue(StructuredName.FAMILY_NAME, family)
+                            .build());
+                }
+            }
             if (d.phoneDataId >= 0) {
                 ops.add(ContentProviderOperation.newUpdate(Data.CONTENT_URI)
                         .withSelection(Data._ID + "=?", new String[] { String.valueOf(d.phoneDataId) })
                         .withValue(Phone.NUMBER, tel)
                         .build());
+                String oldKey = ContactForm.numberKey(d.number);
+                if (!oldKey.equals(ContactForm.numberKey(tel))) {
+                    // phones() lists a number held by two accounts once; the other copy
+                    // would otherwise show up as a second, old number.
+                    for (long sibling : siblingRows(cr, d.contactId, Phone.CONTENT_ITEM_TYPE,
+                            oldKey, d.phoneDataId)) {
+                        ops.add(ContentProviderOperation.newUpdate(Data.CONTENT_URI)
+                                .withSelection(Data._ID + "=?", new String[] { String.valueOf(sibling) })
+                                .withValue(Phone.NUMBER, tel)
+                                .build());
+                    }
+                }
             } else {
                 ops.add(ContentProviderOperation.newInsert(Data.CONTENT_URI)
                         .withValue(Data.RAW_CONTACT_ID, d.rawContactId)
@@ -300,6 +325,28 @@ final class Contacts {
             // account), SecurityException: not saved, the form says so.
             return -1;
         }
+    }
+
+    /**
+     * Data row ids of the given kind across all raw contacts of the person,
+     * except one. With a numberKey only phone rows holding that number. Queried
+     * first and updated by _ID, because Data updates do not reliably accept
+     * view columns such as CONTACT_ID in their selection.
+     */
+    private static List<Long> siblingRows(ContentResolver cr, long contactId, String mime,
+            String numberKey, long except) {
+        List<Long> out = new ArrayList<>();
+        try (Cursor c = cr.query(Data.CONTENT_URI, new String[] { Data._ID, Data.DATA1 },
+                Data.CONTACT_ID + "=? AND " + Data.MIMETYPE + "=?",
+                new String[] { String.valueOf(contactId), mime }, Data._ID)) {
+            while (c != null && c.moveToNext()) {
+                long id = c.getLong(0);
+                if (id == except) continue;
+                if (numberKey != null && !numberKey.equals(ContactForm.numberKey(c.getString(1)))) continue;
+                out.add(id);
+            }
+        }
+        return out;
     }
 
     private static long contactOfRaw(ContentResolver cr, long rawId) {

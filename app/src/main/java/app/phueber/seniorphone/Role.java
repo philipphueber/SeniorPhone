@@ -82,6 +82,17 @@ public final class Role {
     }
 
     /**
+     * Dismisses the question in the caller's onDestroy. When the activity is only
+     * being recreated (font size, dark mode, language) the question was not
+     * answered, so the new instance must be allowed to ask again.
+     */
+    public static void dismiss(Activity a, Dialog d) {
+        if (d == null || !d.isShowing()) return;
+        d.dismiss();
+        if (!a.isFinishing()) askedThisRun = false;
+    }
+
+    /**
      * Shows Android's own "make this the default phone app?" question. The
      * result arrives in a.onActivityResult with REQUEST_CODE. Returns false
      * if the phone has no such question (then openDefaultAppsSettings helps).

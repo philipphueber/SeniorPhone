@@ -103,6 +103,7 @@ public final class ContactsActivity extends Activity {
     /** The permission is asked by itself once per visit; after that only via the button. */
     private boolean askedPermission;
     private ContentObserver observer;
+    private android.app.Dialog roleDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +123,7 @@ public final class ContactsActivity extends Activity {
         frame.setFitsSystemWindows(true);
         frame.addView(build());
         setContentView(frame);
-        Role.askIfNeeded(this);
+        roleDialog = Role.askIfNeeded(this);
     }
 
     @Override
@@ -195,6 +196,7 @@ public final class ContactsActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        Role.dismiss(this, roleDialog);
         generation++; // drop results still on their way
     }
 

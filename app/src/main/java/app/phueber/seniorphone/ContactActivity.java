@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.ContentResolver;
 import android.content.Intent;
+import android.database.ContentObserver;
 import android.content.res.ColorStateList;
 import android.os.Build;
 import android.os.Bundle;
@@ -102,8 +103,27 @@ public final class ContactActivity extends Activity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+        // The helper may lock the home screen while this page stays visible (split screen).
+        try {
+            getContentResolver().registerContentObserver(LauncherLock.STATE, false, lockObserver);
+        } catch (RuntimeException ignored) {
+            // no launcher: our own lock only, checked in onResume
+        }
+    }
+
+    private final ContentObserver lockObserver = new ContentObserver(Contacts.MAIN) {
+        @Override public void onChange(boolean selfChange) {
+            if (store.locked()) dismissDialog();
+            renderTopBar();
+        }
+    };
+
+    @Override
     protected void onStop() {
         super.onStop();
+        getContentResolver().unregisterContentObserver(lockObserver);
         dismissDialog();
     }
 
@@ -265,6 +285,7 @@ public final class ContactActivity extends Activity {
         String name = ContactsActivity.displayName(this, contact);
         dialog = Ui.confirm(this, getString(R.string.contacts_delete_question, name),
                 getString(R.string.contacts_delete), R.color.red, () -> {
+                    if (store.locked()) return; // locked while the question was open
                     ContentResolver cr = getContentResolver();
                     long gone = id;
                     Contacts.BACKGROUND.execute(() -> {

@@ -49,6 +49,7 @@ public final class DialActivity extends Activity {
     private Button delete;
     private Button call;
     private ToneGenerator tones;
+    private android.app.Dialog roleDialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +60,19 @@ public final class DialActivity extends Activity {
                 : fromIntent(getIntent());
         setContentView(build());
         update();
+        // The Phone icon is a front door of its own, so the role question belongs here too.
+        // Not over a number another app handed us (ACTION_DIAL / tel:): that would interrupt it.
+        Intent in = getIntent();
+        if (savedInstanceState == null && in != null && in.getData() == null
+                && (in.getAction() == null || Intent.ACTION_MAIN.equals(in.getAction()))) {
+            roleDialog = Role.askIfNeeded(this);
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Role.dismiss(this, roleDialog);
     }
 
     @Override

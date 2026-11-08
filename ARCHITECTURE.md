@@ -38,7 +38,7 @@ colour theme (`Store`).
 | `SettingsActivity` | Lock (long press), Colours, Phone app, phone settings. |
 | `Ui`, `Palette` | Copied from SeniorLauncher: shared buttons, screens and dialogs; the four colour themes, contrast-tested. |
 | `Store` | Own lock flag and theme; `locked()` is the launcher's lock or our own. |
-| `LauncherLock` | Reads SeniorLauncher's lock. |
+| `LauncherLock` | Reads SeniorLauncher's lock; when the launcher cannot answer, the last known value is used (while it is installed). |
 
 ## A call can always be answered, declined and ended
 
