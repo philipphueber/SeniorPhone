@@ -62,4 +62,5 @@
     <string name="contacts_back_to_call">Zurück zum Anruf</string>
     <string name="contacts_locked_by_launcher">Zusammen mit der Startseite gesperrt. Zum Entsperren halten Sie das Schloss auf der Startseite gedrückt.</string>
     <string name="contacts_go_home">Zur Startseite</string>
+    <string name="contacts_app_name">Kontakte</string>
 </resources>

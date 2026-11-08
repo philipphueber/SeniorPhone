@@ -32,11 +32,15 @@
         android:theme="@style/AppTheme"
         tools:targetApi="35">
 
-        <!-- The contact list: what the senior sees first. The DIAL filters are
-             what Android requires of a default phone app (role DIALER). -->
+        <!-- Two icons on the home screen, because seniors look for "Phone" and
+             "Contacts" separately: "Contacts" opens the contact list. APP_CONTACTS
+             lets launchers (SeniorLauncher's first-run tiles) find it as the
+             contacts app. -->
         <activity
             android:name=".ContactsActivity"
             android:exported="true"
+            android:icon="@drawable/ic_launcher_contacts"
+            android:label="@string/contacts_app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             tools:ignore="DiscouragedApi,LockedOrientationActivity">
@@ -44,14 +48,30 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.APP_CONTACTS" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
 
-        <!-- The number pad; also the target of "dial this number" from other apps. -->
+        <!-- "Phone" on the home screen: the number pad. Also the target of "dial
+             this number" from other apps; the DIAL filters are what Android
+             requires of a default phone app (role DIALER). Its own task affinity,
+             so tapping "Phone" never brings up the contact list or the other way
+             round; opened from the contact list it stays in that list's task. -->
         <activity
             android:name=".DialActivity"
             android:exported="true"
+            android:icon="@drawable/ic_launcher"
+            android:label="@string/app_name"
             android:screenOrientation="portrait"
+            android:taskAffinity="app.phueber.seniorphone.dial"
             tools:ignore="DiscouragedApi,LockedOrientationActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.DIAL" />
                 <category android:name="android.intent.category.DEFAULT" />

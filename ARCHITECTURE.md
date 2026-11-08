@@ -5,6 +5,13 @@ a contact list with big names and favourites at the top, a number pad, and its
 own big incoming-call and in-call screens. It takes Android's phone-app role
 (DIALER), which is what lets it show those call screens.
 
+Two icons on the home screen, because seniors look for "Phone" and
+"Contacts" separately: **Phone** (`DialActivity`) opens the number pad,
+**Contacts** (`ContactsActivity`, also `APP_CONTACTS`) the contact list. The
+number pad has its own task affinity, so each icon always opens its own screen;
+opened from the contact list it stays in the list's task, and Back returns
+there.
+
 Contacts and favourites are not stored by the app. They are the phone's own
 address book (`ContactsContract`, favourite = `STARRED`), so they are the same
 in every app and survive a reinstall. The app stores only its lock flag and

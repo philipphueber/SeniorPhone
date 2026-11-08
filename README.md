@@ -7,6 +7,9 @@ calls, the whole screen shows who it is, with a huge **Answer** button.
 
 English and German. The app follows the phone's language.
 
+It puts two icons on the home screen: **Phone** (green handset) opens the
+number pad, **Contacts** (blue address book) opens the contact list.
+
 [Deutsch weiter unten](#seniorphone-deutsch)
 
 ## What you see
@@ -28,7 +31,7 @@ English and German. The app follows the phone's language.
    the phone.
 2. Open it. Android asks whether to allow installing from this source; allow it
    once.
-3. Open **Phone**. It asks to become the phone app; say yes. Then allow
+3. Open **Contacts**. It asks to become the phone app; say yes. Then allow
    contacts and notifications.
 
 Needs Android 8.0 or newer and a phone with a SIM card.
@@ -52,6 +55,9 @@ Große Namen, Favoriten oben, ein großer grüner Knopf zum Anrufen. Wenn jemand
 anruft, zeigt der ganze Bildschirm, wer es ist, mit einem riesigen Knopf
 **Annehmen**.
 
+Es legt zwei Symbole auf die Startseite: **Telefon** (grüner Hörer) öffnet das
+Tastenfeld, **Kontakte** (blaues Adressbuch) öffnet die Kontaktliste.
+
 ### Was Sie sehen
 
 - **Kontakte**: zuerst Ihre Favoriten, dann alle von A bis Z, in großer Schrift.
@@ -71,7 +77,7 @@ anruft, zeigt der ganze Bildschirm, wer es ist, mit einem riesigen Knopf
    [Releases](https://github.com/philipphueber/SeniorPhone/releases).
 2. Öffnen Sie sie. Android fragt, ob aus dieser Quelle installiert werden darf;
    erlauben Sie es einmal.
-3. Öffnen Sie **Telefon**. Es fragt, ob es die Telefon-App werden soll; sagen Sie
+3. Öffnen Sie **Kontakte**. Es fragt, ob es die Telefon-App werden soll; sagen Sie
    Ja. Erlauben Sie dann Kontakte und Benachrichtigungen.
 
 Benötigt Android 8.0 oder neuer und ein Telefon mit SIM-Karte.

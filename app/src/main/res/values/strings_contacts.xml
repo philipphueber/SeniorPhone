@@ -64,4 +64,5 @@
     <string name="contacts_back_to_call">Back to the call</string>
     <string name="contacts_locked_by_launcher">Locked together with the home screen. To unlock, press and hold the padlock on the home screen.</string>
     <string name="contacts_go_home">Go to the home screen</string>
+    <string name="contacts_app_name">Contacts</string>
 </resources>
