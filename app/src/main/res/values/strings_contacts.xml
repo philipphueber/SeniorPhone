@@ -19,8 +19,7 @@
     <string name="contacts_unstar_cd">Remove %1$s from favourites</string>
     <string name="contacts_starred_now">%1$s is now a favourite</string>
     <string name="contacts_unstarred_now">%1$s is no longer a favourite</string>
-    <string name="contacts_locked_desc">Locked. Press and hold to unlock.</string>
-    <string name="contacts_unlock_question">Unlock?</string>
+    <string name="contacts_locked_desc">Locked. Press and hold to unlock with the PIN.</string>
     <string name="contacts_unlock">Unlock</string>
 
     <!-- Asking for the contacts permission -->
@@ -62,7 +61,5 @@
         <item quantity="other">This contact has %d more numbers. They stay as they are.</item>
     </plurals>
     <string name="contacts_back_to_call">Back to the call</string>
-    <string name="contacts_locked_by_launcher">Locked together with the home screen. To unlock, press and hold the padlock on the home screen.</string>
-    <string name="contacts_go_home">Go to the home screen</string>
     <string name="contacts_app_name">Contacts</string>
 </resources>

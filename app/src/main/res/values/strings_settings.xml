@@ -3,8 +3,7 @@
     <!-- The helper's settings (SettingsActivity). -->
     <string name="settings_title">Settings</string>
     <string name="settings_lock">Lock</string>
-    <string name="settings_lock_hint">Press and hold the button to lock.</string>
-    <string name="settings_lock_explain">When locked, the favourites stay as they are: the stars cannot be changed, and contacts cannot be added, edited or deleted. Settings is hidden too. To unlock, press and hold the padlock on the contact list.</string>
+    <string name="settings_lock_explain">When locked, the favourites stay as they are: the stars cannot be changed, and contacts cannot be added, edited or deleted. Settings is hidden too. To unlock, press and hold the padlock on the contact list and enter the PIN.</string>
     <string name="settings_colours">Colours</string>
     <string name="settings_colour_light">Light</string>
     <string name="settings_colour_dark">Dark</string>
@@ -21,6 +20,6 @@
     <string name="settings_phone_app_explain">Only the phone app shows incoming calls and calls in progress. As the phone app, this app shows them big and simple.</string>
     <string name="settings_phone">Phone settings</string>
     <string name="settings_phone_explain">Opens the phone’s own settings, for example ringtone, volume, brightness and text size.</string>
-    <string name="settings_lock_with_launcher_off">The phone app locks together with the home screen. To lock, go to the home screen: Settings → Lock (press and hold). Then no contacts can be added and favourites stay as they are.</string>
-    <string name="settings_lock_with_launcher_on">Locked together with the home screen. To unlock, press and hold the padlock on the home screen.</string>
+    <string name="settings_lock_with_launcher_off">The phone app locks together with the home screen. To lock, go to the home screen: Settings → Lock. Then no contacts can be added and favourites stay as they are.</string>
+    <string name="settings_lock_with_launcher_on">Locked together with the home screen. To unlock, press and hold the padlock and enter the PIN: on the contact list or on the home screen.</string>
 </resources>

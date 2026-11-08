@@ -402,7 +402,7 @@ public final class ContactsActivity extends Activity {
 
     /**
      * Small and muted on purpose: it is for the helper, not the senior. A short
-     * tap does nothing; only a long press offers to unlock.
+     * tap does nothing; only a long press asks for the PIN (see PinDialog).
      */
     private View padlock() {
         ImageView lock = new ImageView(this);
@@ -417,22 +417,12 @@ public final class ContactsActivity extends Activity {
         lock.setLongClickable(true);
         lock.setOnLongClickListener(v -> {
             dismissDialog();
-            if (store.lockedByLauncher()) {
-                // Locked together with the home screen: only the home screen
-                // unlocks, so this app cannot lift the helper's lock.
-                dialog = Ui.confirm(this, getString(R.string.contacts_locked_by_launcher),
-                        getString(R.string.contacts_go_home), R.color.green, () ->
-                                startActivity(new Intent(Intent.ACTION_MAIN)
-                                        .addCategory(Intent.CATEGORY_HOME)
-                                        .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)));
-                return true;
-            }
-            dialog = Ui.confirm(this, getString(R.string.contacts_unlock_question),
-                    getString(R.string.contacts_unlock), R.color.green, () -> {
-                        store.setLocked(false);
-                        locked = false;
-                        renderLock();
-                    });
+            // The PIN lifts the lock right here, also when it was set on the
+            // home screen (then it is that PIN, and the home screen unlocks too).
+            dialog = PinDialog.unlock(this, store::unlock, () -> {
+                locked = store.locked();
+                renderLock();
+            });
             return true;
         });
         lock.setAccessibilityDelegate(new View.AccessibilityDelegate() {

@@ -2,8 +2,7 @@
 <resources>
     <string name="settings_title">Einstellungen</string>
     <string name="settings_lock">Sperren</string>
-    <string name="settings_lock_hint">Halten Sie die Taste gedrückt, um zu sperren.</string>
-    <string name="settings_lock_explain">Wenn gesperrt, bleiben die Favoriten, wie sie sind: Die Sterne lassen sich nicht ändern, und Kontakte können nicht hinzugefügt, bearbeitet oder gelöscht werden. Auch die Einstellungen sind dann verborgen. Zum Entsperren halten Sie das Schloss in der Kontaktliste gedrückt.</string>
+    <string name="settings_lock_explain">Wenn gesperrt, bleiben die Favoriten, wie sie sind: Die Sterne lassen sich nicht ändern, und Kontakte können nicht hinzugefügt, bearbeitet oder gelöscht werden. Auch die Einstellungen sind dann verborgen. Zum Entsperren halten Sie das Schloss in der Kontaktliste gedrückt und geben die PIN ein.</string>
     <string name="settings_colours">Farben</string>
     <string name="settings_colour_light">Hell</string>
     <string name="settings_colour_dark">Dunkel</string>
@@ -20,6 +19,6 @@
     <string name="settings_phone_app_explain">Nur die Telefon-App zeigt eingehende und laufende Anrufe an. Als Telefon-App zeigt diese App sie groß und einfach.</string>
     <string name="settings_phone">Telefon-Einstellungen</string>
     <string name="settings_phone_explain">Öffnet die Einstellungen des Telefons, zum Beispiel für Klingelton, Lautstärke, Helligkeit und Schriftgröße.</string>
-    <string name="settings_lock_with_launcher_off">Die Telefon-App wird zusammen mit der Startseite gesperrt. Zum Sperren gehen Sie zur Startseite: Einstellungen → Sperren (gedrückt halten). Danach können keine Kontakte hinzugefügt werden, und die Favoriten bleiben, wie sie sind.</string>
-    <string name="settings_lock_with_launcher_on">Zusammen mit der Startseite gesperrt. Zum Entsperren halten Sie das Schloss auf der Startseite gedrückt.</string>
+    <string name="settings_lock_with_launcher_off">Die Telefon-App wird zusammen mit der Startseite gesperrt. Zum Sperren gehen Sie zur Startseite: Einstellungen → Sperren. Danach können keine Kontakte hinzugefügt werden, und die Favoriten bleiben, wie sie sind.</string>
+    <string name="settings_lock_with_launcher_on">Zusammen mit der Startseite gesperrt. Zum Entsperren halten Sie das Schloss gedrückt und geben die PIN ein: in der Kontaktliste oder auf der Startseite.</string>
 </resources>

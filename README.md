@@ -43,9 +43,10 @@ Needs Android 8.0 or newer and a phone with a SIM card.
 - **Settings → Colours**: Light, Dark, High contrast or Colourful.
 - **Lock**: locking the home screen (SeniorLauncher: Settings → Lock) locks
   the phone too. Afterwards the favourites stay as they are, and nobody can be
-  added, changed or deleted by accident. Calling still works. Unlock on the home
-  screen. Without SeniorLauncher: Settings → Lock here (press and hold), and
-  hold the padlock to unlock.
+  added, changed or deleted by accident. Calling still works. To unlock, hold
+  the padlock (here or on the home screen) and enter the home screen's PIN.
+  Without SeniorLauncher: Settings → Lock here with a PIN of its own, and hold
+  the padlock to unlock.
 
 ## SeniorPhone (Deutsch)
 
@@ -92,8 +93,9 @@ Benötigt Android 8.0 oder neuer und ein Telefon mit SIM-Karte.
 - **Sperren**: Wird die Startseite gesperrt (SeniorLauncher: Einstellungen →
   Sperren), ist auch das Telefon gesperrt. Danach bleiben die Favoriten, wie sie
   sind, und niemand kann aus Versehen hinzugefügt, geändert oder gelöscht
-  werden. Anrufen geht weiterhin. Entsperrt wird auf der Startseite. Ohne
-  SeniorLauncher: hier Einstellungen → Sperren (gedrückt halten), zum Entsperren
+  werden. Anrufen geht weiterhin. Zum Entsperren das Schloss gedrückt halten
+  (hier oder auf der Startseite) und die PIN der Startseite eingeben. Ohne
+  SeniorLauncher: hier Einstellungen → Sperren mit eigener PIN, zum Entsperren
   das Schloss gedrückt halten.
 
 ## Contributing

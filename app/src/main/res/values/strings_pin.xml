@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- The lock's PIN prompts (PinDialog), the same as in SeniorLauncher and SeniorAlert. -->
+    <string name="pin_lock_title">Lock</string>
+    <string name="pin_lock_message">Choose a PIN (4 to 8 digits). You need it to unlock.</string>
+    <string name="pin_lock">Lock</string>
+    <string name="pin_unlock_title">Unlock</string>
+    <string name="pin_unlock_message">Enter the PIN.</string>
+    <string name="pin_unlock">Unlock</string>
+    <string name="pin_hint">PIN</string>
+    <string name="pin_repeat_hint">Repeat PIN</string>
+    <string name="pin_invalid">The PIN must have 4 to 8 digits.</string>
+    <string name="pin_mismatch">The two PINs are not the same.</string>
+    <string name="pin_wrong">Wrong PIN.</string>
+</resources>

@@ -18,8 +18,7 @@
     <string name="contacts_unstar_cd">%1$s aus den Favoriten entfernen</string>
     <string name="contacts_starred_now">%1$s ist jetzt ein Favorit</string>
     <string name="contacts_unstarred_now">%1$s ist kein Favorit mehr</string>
-    <string name="contacts_locked_desc">Gesperrt. Zum Entsperren gedrückt halten.</string>
-    <string name="contacts_unlock_question">Entsperren?</string>
+    <string name="contacts_locked_desc">Gesperrt. Zum Entsperren mit der PIN gedrückt halten.</string>
     <string name="contacts_unlock">Entsperren</string>
 
     <!-- Berechtigung für Kontakte -->
@@ -60,7 +59,5 @@
         <item quantity="other">Dieser Kontakt hat noch %d weitere Nummern. Sie bleiben erhalten.</item>
     </plurals>
     <string name="contacts_back_to_call">Zurück zum Anruf</string>
-    <string name="contacts_locked_by_launcher">Zusammen mit der Startseite gesperrt. Zum Entsperren halten Sie das Schloss auf der Startseite gedrückt.</string>
-    <string name="contacts_go_home">Zur Startseite</string>
     <string name="contacts_app_name">Kontakte</string>
 </resources>

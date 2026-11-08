@@ -6,12 +6,13 @@ import android.database.Cursor;
 import android.net.Uri;
 
 /**
- * The lock of SeniorLauncher, read through its read-only LockProvider: when the
- * helper locks the home screen, this app is locked too (no new contacts, no
- * changes to favourites), with one long press for the whole phone.
+ * The lock of SeniorLauncher, read through its LockProvider: when the helper
+ * locks the home screen, this app is locked too (no new contacts, no changes
+ * to favourites), with one lock for the whole phone.
  *
- * Only read, never written: unlocking is done on the home screen. Without
- * SeniorLauncher installed this app keeps its own lock (Store).
+ * This app cannot lock it; it can only lift it with its PIN ({@link #unlock}),
+ * so the helper unlocks right here instead of going back to the home screen.
+ * Without SeniorLauncher installed this app keeps its own lock (Store).
  */
 final class LauncherLock {
     static final String PACKAGE = "app.phueber.seniorlauncher";
@@ -23,6 +24,21 @@ final class LauncherLock {
     static boolean present(Context c) {
         try {
             return c.getPackageManager().resolveContentProvider(STATE.getAuthority(), 0) != null;
+        } catch (RuntimeException e) {
+            return false;
+        }
+    }
+
+    /**
+     * Asks SeniorLauncher to unlock with this PIN; true if it did. False for a
+     * wrong PIN, and when the launcher cannot be asked.
+     */
+    static boolean unlock(Context c, String pin) {
+        try {
+            android.os.Bundle out = c.getContentResolver().call(STATE, "unlock", pin, null);
+            boolean ok = out != null && out.getBoolean("unlocked", false);
+            if (ok) remember(c, false);
+            return ok;
         } catch (RuntimeException e) {
             return false;
         }

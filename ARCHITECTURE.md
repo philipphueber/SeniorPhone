@@ -35,10 +35,12 @@ colour theme (`Store`).
 | `CallActionReceiver` | Decline and Hang up from the notifications. After a process restart, a tap before Telecom has rebound the call service is kept for 3 s and applied when the call arrives. |
 | `CallState` | Pure: Telecom states to screens, which call gets the screen, why a call ended, the timer text. Unit tested. |
 | `Role` | Asks once per start to become the phone app; Settings shows the state. |
-| `SettingsActivity` | Lock (long press), Colours, Phone app, phone settings. |
+| `SettingsActivity` | Lock (choose a PIN), Colours, Phone app, phone settings. |
 | `Ui`, `Palette` | Copied from SeniorLauncher: shared buttons, screens and dialogs; the four colour themes, contrast-tested. |
-| `Store` | Own lock flag and theme; `locked()` is the launcher's lock or our own. |
-| `LauncherLock` | Reads SeniorLauncher's lock; when the launcher cannot answer, the last known value is used (while it is installed). |
+| `Store` | Own lock flag with PIN salt/hash, and theme; `locked()` is the launcher's lock or our own; `unlock(pin)` lifts both. |
+| `LauncherLock` | Reads SeniorLauncher's lock, and lifts it with its PIN; when the launcher cannot answer, the last known value is used (while it is installed). |
+| `Pin` | PIN validation, salted hash, constant-time compare. Same as SeniorAlert's. Pure. |
+| `PinDialog` | Choose a PIN (twice); enter it to unlock. The unlock prompt closes after 10 s without typing. |
 
 ## A call can always be answered, declined and ended
 
@@ -71,17 +73,17 @@ This is the part that must never fail.
 ## Lock
 
 One lock for the whole phone. With SeniorLauncher installed, this app follows
-the home screen's lock (`LauncherLock` reads the launcher's read-only
-`LockProvider`; a ContentObserver follows changes while the list is open).
-Settings then only explains that, and holding the padlock here says to unlock
-on the home screen: this app can see the lock but never lift it. Without the
-launcher, Settings → Lock (long press) is this app's own lock, unlocked by
-holding the padlock.
+the home screen's lock (`LauncherLock` reads the launcher's `LockProvider`; a
+ContentObserver follows changes while the list is open). Settings then only
+explains that. Holding the padlock here asks for the home screen's PIN and
+lifts the lock in place, for the whole phone, so the helper never has to go
+back to the home screen. Without the launcher, Settings → Lock (choose a PIN)
+is this app's own lock, unlocked the same way. The PIN prompt never lingers:
+it closes after 10 s without typing.
 
 Locked: Settings is replaced by a padlock, the star buttons go, a favourite shows its
 star inside its pill on the right, and New contact, Edit and Delete
-disappear. Calling works as always. No PIN, on purpose: it protects against
-accidents.
+disappear. Calling works as always.
 
 Every screen has its Back button at the bottom, like the other Senior apps,
 and it goes straight to the home screen in one tap (`Ui.goHome`), closing the

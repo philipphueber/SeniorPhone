@@ -21,6 +21,7 @@ public final class SettingsActivity extends Activity {
     private static final String STATE_DECLINED = "declined";
 
     private Store store;
+    private android.app.Dialog dialog;
     /** Filled by showPhoneApp(): its state can change while we are away (Android's own question). */
     private LinearLayout phoneApp;
     /** Android's question came back without "yes": also offer the default-apps page. */
@@ -35,30 +36,24 @@ public final class SettingsActivity extends Activity {
         LinearLayout content = Ui.screen(this, getString(R.string.settings_title));
 
         if (LauncherLock.present(this)) {
-            // SeniorLauncher is installed: one lock for the whole phone, set and
-            // lifted on the home screen. A second lock here would only confuse.
+            // SeniorLauncher is installed: one lock for the whole phone, set on the
+            // home screen. A second lock here would only confuse.
             content.addView(heading(getString(R.string.settings_lock)), Ui.fullWidth(this, 8));
             content.addView(explanation(getString(store.lockedByLauncher()
                     ? R.string.settings_lock_with_launcher_on
                     : R.string.settings_lock_with_launcher_off)), Ui.fullWidth(this, 8));
         } else {
-            // Lock: long press only, like the unlock on the contact list, so a senior
-            // tapping around cannot lock by accident. A short tap says what to do.
+            // Lock: asks for a new PIN (twice), like SeniorAlert. Typing a PIN is
+            // the guard against locking by accident, so a plain tap opens it.
             Button lock = Ui.button(this, getString(R.string.settings_lock), R.color.green);
-            TextView hint = Ui.bold(this, getString(R.string.settings_lock_hint), Ui.TEXT_BODY);
-            hint.setTextColor(Ui.color(this, R.color.red));
-            hint.setVisibility(View.GONE);
             lock.setOnClickListener(v -> {
-                hint.setVisibility(View.VISIBLE);
-                hint.announceForAccessibility(hint.getText());
-            });
-            lock.setOnLongClickListener(v -> {
-                store.setLocked(true);
-                finish(); // back to the contact list, which now shows only the padlock
-                return true;
+                dismissDialog();
+                dialog = PinDialog.choose(this, pin -> {
+                    store.lock(pin);
+                    finish(); // back to the contact list, which now shows only the padlock
+                });
             });
             content.addView(lock, Ui.fullWidth(this, 8));
-            content.addView(hint, Ui.fullWidth(this, 8));
             content.addView(explanation(getString(R.string.settings_lock_explain)), Ui.fullWidth(this, 8));
         }
 
@@ -104,6 +99,19 @@ public final class SettingsActivity extends Activity {
     protected void onResume() {
         super.onResume();
         showPhoneApp(); // also after coming back from Android's question or the default-apps page
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        dismissDialog(); // a half-typed PIN does not wait for the next visit
+    }
+
+    private void dismissDialog() {
+        if (dialog != null) {
+            dialog.dismiss();
+            dialog = null;
+        }
     }
 
     @Override
